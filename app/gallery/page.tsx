@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import Folder from "@/app/components/Folder";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Gallery | Portfolio",
   description: "Browse my photography collections.",

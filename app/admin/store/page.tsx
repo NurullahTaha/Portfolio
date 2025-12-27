@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ArrowLeft, Trash2 } from "lucide-react";
 import { deleteProduct } from "@/app/actions/productActions";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminStorePage() {
   const products = await prisma.product.findMany({
     orderBy: { createdAt: 'desc' }

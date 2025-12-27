@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import clsx from "clsx";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Gear | Portfolio",
   description: "A timeline of the equipment I use.",

@@ -4,6 +4,8 @@ import GearList from "@/app/components/GearList";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminGearPage() {
   const gear = await prisma.gear.findMany({
     orderBy: { purchaseDate: 'desc' }

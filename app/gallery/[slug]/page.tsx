@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import PhotoGrid from "@/app/components/PhotoGrid";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
 

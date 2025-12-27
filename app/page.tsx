@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import WhySection from "@/app/components/WhySection"; // New Component
 
+export const dynamic = "force-dynamic";
+
 // Placeholder component for when no photos exist
 function EmptyState() {
   return (

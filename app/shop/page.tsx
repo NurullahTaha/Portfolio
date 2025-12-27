@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/app/components/ProductCard";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Shop | Portfolio",
 };

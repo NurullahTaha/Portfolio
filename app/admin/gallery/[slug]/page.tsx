@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, Eye } from "lucide-react";
 import PhotoGrid from "@/app/components/PhotoGrid";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminCategoryPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
 
