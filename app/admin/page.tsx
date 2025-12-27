@@ -69,6 +69,22 @@ export default async function AdminPage() {
                 </div>
             </div>
         </Link>
+
+        {/* Manage Store Link */}
+        <Link 
+            href="/admin/store"
+            className="group block p-8 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-pastel-sage transition-all"
+        >
+             <div className="flex items-center gap-4 mb-4">
+                <div className="p-4 bg-pastel-black rounded-xl text-gray-400 group-hover:text-pastel-sage group-hover:scale-110 transition-all">
+                    <Folder className="w-10 h-10" />
+                </div>
+                <div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-pastel-sage transition-colors">Manage Store</h3>
+                    <p className="text-gray-400">Sell presets & prints.</p>
+                </div>
+            </div>
+        </Link>
       </div>
     </div>
   );

@@ -59,9 +59,9 @@ export default function PhotoGrid({ photos, isAdmin = false }: PhotoGridProps) {
              
              {/* Hover Overlay */}
              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <p className="text-white font-medium">{photo.title}</p>
-                <div className="absolute top-4 right-4 text-white/80">
-                    <Maximize2 className="w-5 h-5" />
+                {/* <p className="text-white font-medium">{photo.title}</p> Removed title display */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/80 scale-50 group-hover:scale-100 transition-transform duration-300">
+                    <Maximize2 className="w-8 h-8" />
                 </div>
              </div>
 
@@ -110,13 +110,6 @@ export default function PhotoGrid({ photos, isAdmin = false }: PhotoGridProps) {
                     alt={selectedPhoto.title || "Full size"}
                     className="max-w-full max-h-full object-contain rounded-sm shadow-2xl"
                 />
-
-                {/* Caption / Actions Overlay */}
-                <div className="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
-                     <span className="inline-block px-4 py-2 bg-black/60 backdrop-blur-sm rounded-full text-white font-medium">
-                        {selectedPhoto.title}
-                     </span>
-                </div>
 
                 {/* Admin Delete inside Modal */}
                 {isAdmin && (

@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { CartProvider } from "./context/CartContext";
+import CartSidebar from "./components/CartSidebar";
 import Navbar from "./components/Navbar";
 import CookieBanner from "./components/CookieBanner";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,10 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Photography Portfolio",
-  description: "A showcase of my photography work.",
-};
+// ... (imports)
 
 export default function RootLayout({
   children,
@@ -29,11 +27,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-pastel-black text-foreground`}
       >
-        <Navbar />
-        <main className="pt-16 min-h-screen">
-          {children}
-        </main>
-        <CookieBanner />
+        <CartProvider>
+          <Navbar />
+          <CartSidebar />
+          <main className="pt-16 min-h-screen">
+            {children}
+          </main>
+          <CookieBanner />
+        </CartProvider>
       </body>
     </html>
   );

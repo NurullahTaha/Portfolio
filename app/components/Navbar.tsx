@@ -5,18 +5,21 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Camera } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import clsx from "clsx";
+import { useCart } from "@/app/context/CartContext";
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Gallery", href: "/gallery" },
   { name: "Gear", href: "/gear" },
+  { name: "Shop", href: "/shop" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { toggleCart, cart } = useCart();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-pastel-black/80 backdrop-blur-md border-b border-white/5">
@@ -35,8 +38,8 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          <div className="hidden md:flex items-center gap-8">
+            <div className="flex items-baseline space-x-8">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -52,10 +55,34 @@ export default function Navbar() {
                 </Link>
               ))}
             </div>
+
+            {/* Cart Button */}
+            <button 
+                onClick={toggleCart}
+                className="relative p-2 text-gray-300 hover:text-white transition-colors"
+            >
+                <ShoppingCart className="w-6 h-6" />
+                {cart.length > 0 && (
+                    <span className="absolute top-0 right-0 w-4 h-4 bg-pastel-sage text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                        {cart.length}
+                    </span>
+                )}
+            </button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+            <button 
+                onClick={toggleCart}
+                className="relative p-2 text-gray-300 hover:text-white"
+            >
+                <ShoppingCart className="w-6 h-6" />
+                {cart.length > 0 && (
+                    <span className="absolute top-0 right-0 w-4 h-4 bg-pastel-sage text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                        {cart.length}
+                    </span>
+                )}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2"

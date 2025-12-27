@@ -50,11 +50,16 @@ export default async function Home() {
         <div className="md:w-1/2 relative group">
              <div className="absolute -inset-4 bg-pastel-sage/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-700" />
              <div className="aspect-[4/5] bg-gray-900 rounded-2xl border border-white/10 relative overflow-hidden shadow-2xl rotate-3 group-hover:rotate-0 transition-transform duration-700">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-1000" />
+                <Image 
+                    src="/hero.jpg" 
+                    alt="Hero Portfolio Shot" 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                />
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/20 font-bold text-6xl tracking-widest mix-blend-overlay">PORTFOLIO</span>
+
                 </div>
-             </div>
+             </div> 
         </div>
       </section>
 

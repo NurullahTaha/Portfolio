@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-import { writeFile } from "fs/promises";
-import path from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function POST(req: NextRequest) {
   // 1. Security Check
@@ -29,27 +28,19 @@ export async function POST(req: NextRequest) {
     if (category) {
         categoryId = category.id;
     } else {
-        // Create category on the fly if it doesn't exist? (Optional, skipping for safety)
         return NextResponse.json({ error: "Category not found" }, { status: 404 });
     }
 
     const savedPhotos = [];
 
     for (const file of files) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      // Create unique filename
-      const filename = `${Date.now()}-${file.name.replace(/\s/g, '-')}`;
-      const uploadPath = path.join(process.cwd(), "public/uploads", filename);
-      
-      // Save to disk
-      await writeFile(uploadPath, buffer);
+      // Upload to Cloudinary
+      const url = await uploadToCloudinary(file, 'portfolio/gallery');
       
       // Save to DB
       const photo = await prisma.photo.create({
         data: {
-          url: `/uploads/${filename}`,
+          url: url,
           title: file.name.split('.')[0], // Default title is filename
           categoryId: categoryId,
         }

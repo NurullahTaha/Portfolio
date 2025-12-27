@@ -2,8 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-import { unlink } from "fs/promises";
-import path from "path";
+import { deleteFromCloudinary } from "@/lib/cloudinary";
 import { revalidatePath } from "next/cache";
 
 export async function deletePhoto(photoId: string, photoUrl: string) {
@@ -19,20 +18,8 @@ export async function deletePhoto(photoId: string, photoUrl: string) {
       where: { id: photoId },
     });
 
-    // 3. Remove file from disk (Cleanup)
-    if (photoUrl.startsWith("/uploads/")) {
-        // Convert web URL to file path
-        // e.g., /uploads/image.jpg -> /Users/nuri/.../public/uploads/image.jpg
-        const relativePath = photoUrl.substring(1); // remove leading slash
-        const absolutePath = path.join(process.cwd(), "public", relativePath);
-        
-        try {
-            await unlink(absolutePath);
-        } catch (err) {
-            console.error("Failed to delete file from disk:", err);
-            // We continue even if file delete fails (DB is more important)
-        }
-    }
+    // 3. Remove from Cloud
+    await deleteFromCloudinary(photoUrl);
 
     // 4. Refresh the page so the photo disappears instantly
     revalidatePath("/gallery/[slug]", "page");

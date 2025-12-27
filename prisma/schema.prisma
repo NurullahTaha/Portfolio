@@ -46,3 +46,15 @@ model Gear {
   retireDate   DateTime? // If null, it's current gear
   isCurrent    Boolean   @default(true)
 }
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Int      // Stored in cents (e.g., $10.00 = 1000)
+  imageBefore String?  // For Presets: The "Before" shot
+  imageAfter  String   // The main product image (or "After" shot)
+  category    String   // "Preset" or "Print"
+  downloadUrl String?  // Link to the file (if digital)
+  createdAt   DateTime @default(now())
+}

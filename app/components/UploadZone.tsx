@@ -2,8 +2,9 @@
 
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { UploadCloud, X, Check } from 'lucide-react';
+import { UploadCloud, X, Check, Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import imageCompression from 'browser-image-compression';
 
 export default function UploadZone({ categoryId }: { categoryId: string }) {
   const [files, setFiles] = useState<(File & { preview: string })[]>([]);
@@ -24,26 +25,45 @@ export default function UploadZone({ categoryId }: { categoryId: string }) {
 
   const uploadFiles = async () => {
     setUploading(true);
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('file', file);
-    });
-    formData.append('categoryId', categoryId);
-
+    
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      if (res.ok) {
-        setSuccess(true);
-        setFiles([]);
-        // Ideally refresh the page here to see new photos
-        window.location.reload(); 
+      const compressionOptions = {
+        maxSizeMB: 4,
+        maxWidthOrHeight: 2500, // Slightly higher for gallery photos
+        useWebWorker: true,
+      };
+
+      for (const file of files) {
+        // Compress first
+        let fileToUpload = file;
+        try {
+            const compressedFile = await imageCompression(file, compressionOptions);
+            // Assign the preview URL to the compressed file
+            fileToUpload = Object.assign(compressedFile, { preview: URL.createObjectURL(compressedFile) });
+        } catch (err) {
+            console.error("Compression failed for", file.name, err);
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileToUpload, file.name); // Keep original name
+        formData.append('categoryId', categoryId);
+
+        // Upload one by one to avoid timeouts
+        const res = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!res.ok) throw new Error('Upload failed for ' + file.name);
       }
+
+      setSuccess(true);
+      setFiles([]);
+      window.location.reload(); 
+
     } catch (e) {
       console.error(e);
-      alert('Upload failed');
+      alert('Upload failed. Check console for details.');
     } finally {
       setUploading(false);
     }
@@ -96,9 +116,13 @@ export default function UploadZone({ categoryId }: { categoryId: string }) {
         <button
           onClick={uploadFiles}
           disabled={uploading}
-          className="w-full py-3 bg-pastel-blue text-pastel-black font-bold rounded-lg hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-3 bg-pastel-sage text-black font-bold rounded-lg hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          {uploading ? 'Uploading...' : 'Upload Photos'}
+          {uploading ? (
+            <>
+                <Loader2 className="w-5 h-5 animate-spin" /> Compressing & Uploading...
+            </>
+          ) : 'Upload Photos'}
         </button>
       )}
 
