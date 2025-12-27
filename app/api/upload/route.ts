@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
+export const dynamic = 'force-dynamic'; // Disable static pre-rendering for this API route
+
 export async function POST(req: NextRequest) {
   // 1. Security Check
   const session = await auth();
