@@ -1,0 +1,60 @@
+
+> portfolio-site@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/nuri/VSCode/Portfolio/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/nuri/VSCode/Portfolio/portfolio-site/package-lock.json
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  · serverActions
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.5s
+  Running TypeScript ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/12) ...
+prisma:query SELECT `main`.`Gear`.`id`, `main`.`Gear`.`name`, `main`.`Gear`.`type`, `main`.`Gear`.`description`, `main`.`Gear`.`purchaseDate`, `main`.`Gear`.`retireDate`, `main`.`Gear`.`isCurrent` FROM `main`.`Gear` WHERE 1=1 ORDER BY `main`.`Gear`.`purchaseDate` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Product`.`id`, `main`.`Product`.`name`, `main`.`Product`.`description`, `main`.`Product`.`price`, `main`.`Product`.`imageBefore`, `main`.`Product`.`imageAfter`, `main`.`Product`.`category`, `main`.`Product`.`downloadUrl`, `main`.`Product`.`createdAt` FROM `main`.`Product` WHERE 1=1 ORDER BY `main`.`Product`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Category`.`id`, `main`.`Category`.`name`, `main`.`Category`.`slug`, `main`.`Category`.`createdAt` FROM `main`.`Category` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Category`.`id`, `main`.`Category`.`name`, `main`.`Category`.`slug`, `main`.`Category`.`createdAt` FROM `main`.`Category` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Photo`.`id`, `main`.`Photo`.`url`, `main`.`Photo`.`title`, `main`.`Photo`.`description`, `main`.`Photo`.`categoryId`, `main`.`Photo`.`isFavorite`, `main`.`Photo`.`isCover`, `main`.`Photo`.`isSneakPeek`, `main`.`Photo`.`createdAt` FROM `main`.`Photo` WHERE `main`.`Photo`.`categoryId` IN (?,?,?) ORDER BY `main`.`Photo`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Photo`.`id`, `main`.`Photo`.`url`, `main`.`Photo`.`title`, `main`.`Photo`.`description`, `main`.`Photo`.`categoryId`, `main`.`Photo`.`isFavorite`, `main`.`Photo`.`isCover`, `main`.`Photo`.`isSneakPeek`, `main`.`Photo`.`createdAt` FROM `main`.`Photo` WHERE `main`.`Photo`.`categoryId` IN (?,?,?) ORDER BY `main`.`Photo`.`createdAt` DESC LIMIT ? OFFSET ?
+  Generating static pages using 9 workers (3/12) 
+  Generating static pages using 9 workers (6/12) 
+prisma:query SELECT `main`.`Gear`.`id`, `main`.`Gear`.`name`, `main`.`Gear`.`type`, `main`.`Gear`.`description`, `main`.`Gear`.`purchaseDate`, `main`.`Gear`.`retireDate`, `main`.`Gear`.`isCurrent` FROM `main`.`Gear` WHERE 1=1 ORDER BY `main`.`Gear`.`purchaseDate` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Photo`.`id`, `main`.`Photo`.`url`, `main`.`Photo`.`title`, `main`.`Photo`.`description`, `main`.`Photo`.`categoryId`, `main`.`Photo`.`isFavorite`, `main`.`Photo`.`isCover`, `main`.`Photo`.`isSneakPeek`, `main`.`Photo`.`createdAt` FROM `main`.`Photo` WHERE `main`.`Photo`.`isFavorite` = ? ORDER BY `main`.`Photo`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Product`.`id`, `main`.`Product`.`name`, `main`.`Product`.`description`, `main`.`Product`.`price`, `main`.`Product`.`imageBefore`, `main`.`Product`.`imageAfter`, `main`.`Product`.`category`, `main`.`Product`.`downloadUrl`, `main`.`Product`.`createdAt` FROM `main`.`Product` WHERE 1=1 ORDER BY `main`.`Product`.`createdAt` DESC LIMIT ? OFFSET ?
+  Generating static pages using 9 workers (9/12) 
+✓ Generating static pages using 9 workers (12/12) in 132.7ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin
+├ ○ /admin/gallery
+├ ƒ /admin/gallery/[slug]
+├ ○ /admin/gear
+├ ○ /admin/store
+├ ƒ /admin/upload/[slug]
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/upload
+├ ○ /gallery
+├ ƒ /gallery/[slug]
+├ ○ /gear
+├ ○ /login
+└ ○ /shop
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

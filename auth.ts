@@ -47,6 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
     maxAge: 900, // 15 Minutes idle timeout
   },
+  /*
   cookies: {
     sessionToken: {
       name: `portfolio-secure-token`, // New name forces a fresh start
@@ -59,6 +60,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
     }
   },
+  */
   trustHost: true,
   secret: process.env.AUTH_SECRET,
 })
